@@ -11,8 +11,8 @@
 		BA44C1EB2C7BC3E0003BE98F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA44C1EA2C7BC3E0003BE98F /* Kingfisher */; };
 		BA44C1EF2C7C0A81003BE98F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1EE2C7C0A81003BE98F /* SecondViewController.swift */; };
 		BA44C1F12C7C13A9003BE98F /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */; };
-		BA44C1F32C7C1D16003BE98F /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F22C7C1D16003BE98F /* DemoViewController.swift */; };
 		BA44C1F52C7C1F55003BE98F /* DemoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */; };
+		BA44C1F72C7C3237003BE98F /* ExplorePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F62C7C3237003BE98F /* ExplorePageViewController.swift */; };
 		BA9D787E2C7A8E6C00D76956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D787D2C7A8E6C00D76956 /* AppDelegate.swift */; };
 		BA9D78802C7A8E6C00D76956 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D787F2C7A8E6C00D76956 /* SceneDelegate.swift */; };
 		BA9D78822C7A8E6C00D76956 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */; };
@@ -30,8 +30,8 @@
 		BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNLatestAnimeTableViewCell.swift; sourceTree = "<group>"; };
 		BA44C1EE2C7C0A81003BE98F /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
-		BA44C1F22C7C1D16003BE98F /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCollectionViewCell.swift; sourceTree = "<group>"; };
+		BA44C1F62C7C3237003BE98F /* ExplorePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePageViewController.swift; sourceTree = "<group>"; };
 		BA9D787A2C7A8E6C00D76956 /* AnimeList-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AnimeList-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9D787D2C7A8E6C00D76956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA9D787F2C7A8E6C00D76956 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 			children = (
 				BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */,
 				BA44C1EE2C7C0A81003BE98F /* SecondViewController.swift */,
-				BA44C1F22C7C1D16003BE98F /* DemoViewController.swift */,
+				BA44C1F62C7C3237003BE98F /* ExplorePageViewController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -233,10 +233,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA44C1F52C7C1F55003BE98F /* DemoCollectionViewCell.swift in Sources */,
+				BA44C1F72C7C3237003BE98F /* ExplorePageViewController.swift in Sources */,
 				BA44C1F12C7C13A9003BE98F /* AnimeCollectionViewCell.swift in Sources */,
 				BA9D789A2C7A952D00D76956 /* LNRequest.swift in Sources */,
 				BA9D78982C7A94C000D76956 /* LNAnime.swift in Sources */,
-				BA44C1F32C7C1D16003BE98F /* DemoViewController.swift in Sources */,
 				BA9D789C2C7A957300D76956 /* LNEndpoint.swift in Sources */,
 				BA9D78822C7A8E6C00D76956 /* HomeViewController.swift in Sources */,
 				BA9D789E2C7A9E3500D76956 /* LNService.swift in Sources */,

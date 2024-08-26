@@ -1,5 +1,5 @@
 //
-//  DemoViewController.swift
+//  ExplorePageViewController.swift
 //  AnimeList-Demo
 //
 //  Created by Lynn Thit Nyi Nyi on 26/8/2567 BE.
@@ -7,18 +7,17 @@
 
 import UIKit
 
-class DemoViewController: UIViewController {
+class ExplorePageViewController: UIViewController {
     
     var latestAnimeList: [Anime] = []
-    
-    @IBOutlet weak var AnimeCollectionView: UICollectionView!
-    
+
+    @IBOutlet weak var animeCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AnimeCollectionView.delegate = self
-        AnimeCollectionView.dataSource = self
-        
+        animeCollectionView.delegate = self
+        animeCollectionView.dataSource = self
+
         // Do any additional setup after loading the view.
         LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllLatestAnimeResponse.self) { result in
             switch result {
@@ -31,7 +30,7 @@ class DemoViewController: UIViewController {
                 
                 // Reload the collection view on the main thread
                 DispatchQueue.main.async {
-                    self.AnimeCollectionView.reloadData()
+                    self.animeCollectionView.reloadData()
                 }
                 
             case .failure(let error):
@@ -39,21 +38,19 @@ class DemoViewController: UIViewController {
             }
         }
     }
-    
+
 }
 
-extension DemoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == AnimeCollectionView {
-            return latestAnimeList.count
-        }
-        return 0
+        return latestAnimeList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-        let index = indexPath.item
+        let index = indexPath.row
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! DemoCollectionViewCell
+        
+        
         let anime = latestAnimeList[index]
         
         // Extract the image URL string safely
@@ -69,16 +66,15 @@ extension DemoViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         cell.name.text = anime.titleEnglish
+        
         return cell
     }
     
     
 }
 
-
-
 // Implement the UICollectionViewDelegateFlowLayout methods
-extension DemoViewController: UICollectionViewDelegateFlowLayout {
+extension ExplorePageViewController: UICollectionViewDelegateFlowLayout {
     
     // Define the size for each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
