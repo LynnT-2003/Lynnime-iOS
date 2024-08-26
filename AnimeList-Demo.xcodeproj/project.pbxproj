@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA44C1E82C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */; };
+		BA44C1EB2C7BC3E0003BE98F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA44C1EA2C7BC3E0003BE98F /* Kingfisher */; };
+		BA44C1EF2C7C0A81003BE98F /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1EE2C7C0A81003BE98F /* SecondViewController.swift */; };
+		BA44C1F12C7C13A9003BE98F /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */; };
+		BA44C1F32C7C1D16003BE98F /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F22C7C1D16003BE98F /* DemoViewController.swift */; };
+		BA44C1F52C7C1F55003BE98F /* DemoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */; };
 		BA9D787E2C7A8E6C00D76956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D787D2C7A8E6C00D76956 /* AppDelegate.swift */; };
 		BA9D78802C7A8E6C00D76956 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D787F2C7A8E6C00D76956 /* SceneDelegate.swift */; };
 		BA9D78822C7A8E6C00D76956 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */; };
@@ -21,6 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNLatestAnimeTableViewCell.swift; sourceTree = "<group>"; };
+		BA44C1EE2C7C0A81003BE98F /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		BA44C1F22C7C1D16003BE98F /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA9D787A2C7A8E6C00D76956 /* AnimeList-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AnimeList-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9D787D2C7A8E6C00D76956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA9D787F2C7A8E6C00D76956 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA44C1EB2C7BC3E0003BE98F /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +85,9 @@
 				BA9D78832C7A8E6C00D76956 /* Main.storyboard */,
 				BA9D78882C7A8E6E00D76956 /* LaunchScreen.storyboard */,
 				BA9D788B2C7A8E6E00D76956 /* Info.plist */,
+				BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */,
+				BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */,
+				BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */,
 			);
 			path = "AnimeList-Demo";
 			sourceTree = "<group>";
@@ -99,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */,
+				BA44C1EE2C7C0A81003BE98F /* SecondViewController.swift */,
+				BA44C1F22C7C1D16003BE98F /* DemoViewController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -154,6 +171,9 @@
 			dependencies = (
 			);
 			name = "AnimeList-Demo";
+			packageProductDependencies = (
+				BA44C1EA2C7BC3E0003BE98F /* Kingfisher */,
+			);
 			productName = "AnimeList-Demo";
 			productReference = BA9D787A2C7A8E6C00D76956 /* AnimeList-Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +202,9 @@
 				Base,
 			);
 			mainGroup = BA9D78712C7A8E6C00D76956;
+			packageReferences = (
+				BA44C1E92C7BC3E0003BE98F /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = BA9D787B2C7A8E6C00D76956 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,13 +232,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA44C1F52C7C1F55003BE98F /* DemoCollectionViewCell.swift in Sources */,
+				BA44C1F12C7C13A9003BE98F /* AnimeCollectionViewCell.swift in Sources */,
 				BA9D789A2C7A952D00D76956 /* LNRequest.swift in Sources */,
 				BA9D78982C7A94C000D76956 /* LNAnime.swift in Sources */,
+				BA44C1F32C7C1D16003BE98F /* DemoViewController.swift in Sources */,
 				BA9D789C2C7A957300D76956 /* LNEndpoint.swift in Sources */,
 				BA9D78822C7A8E6C00D76956 /* HomeViewController.swift in Sources */,
 				BA9D789E2C7A9E3500D76956 /* LNService.swift in Sources */,
+				BA44C1E82C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift in Sources */,
 				BA9D787E2C7A8E6C00D76956 /* AppDelegate.swift in Sources */,
 				BA9D78802C7A8E6C00D76956 /* SceneDelegate.swift in Sources */,
+				BA44C1EF2C7C0A81003BE98F /* SecondViewController.swift in Sources */,
 				BA9D78A22C7AA14C00D76956 /* LNGetAllLatestAnimeResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +467,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BA44C1E92C7BC3E0003BE98F /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BA44C1EA2C7BC3E0003BE98F /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BA44C1E92C7BC3E0003BE98F /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BA9D78722C7A8E6C00D76956 /* Project object */;
 }
