@@ -11,3 +11,7 @@ struct LNGetAllLatestAnimeResponse: Codable {
     let data: [Anime]
 }
 
+struct LNGetAllUpcomingAnimeResponse: Codable {
+    let data: [Anime]
+}
+

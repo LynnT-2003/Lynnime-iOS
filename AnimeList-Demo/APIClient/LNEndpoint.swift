@@ -10,4 +10,6 @@ import Foundation
 @frozen enum LNEndpoint: String{
     /// endpoint to get latest anime
     case latestAnime = "seasons/now"
+    case winter2024 = "seasons/2024/winter"
+    case upcoming = "seasons/upcoming"
 }

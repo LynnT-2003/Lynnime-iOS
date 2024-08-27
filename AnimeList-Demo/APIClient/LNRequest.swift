@@ -41,6 +41,8 @@ final class LNRequest {
             string += argumentString
         }
         
+        print(string)
+        
         return string
     }
     
@@ -72,4 +74,8 @@ final class LNRequest {
 
 extension LNRequest {
     static let listLatestAnimesRequests = LNRequest(endpoint: .latestAnime)
+}
+
+extension LNRequest {
+    static let listUpcomingAnimesRequests = LNRequest(endpoint: .upcoming)
 }

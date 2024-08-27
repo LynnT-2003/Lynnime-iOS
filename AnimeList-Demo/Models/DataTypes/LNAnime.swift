@@ -8,41 +8,41 @@
 import Foundation
 
 struct Anime: Codable {
-    let malID: Int
-    let url: String
+    let malID: Int?
+    let url: String?
     let images: Images
     let trailer: Trailer?
-    let approved: Bool
-    let titles: [Title]
-    let title: String
+    let approved: Bool?
+    let titles: [Title]?
+    let title: String?
     let titleEnglish: String?
     let titleJapanese: String
     let titleSynonyms: [String]
-    let type: String
-    let source: String
+    let type: String?
+    let source: String?
     let episodes: Int?
-    let status: String
-    let airing: Bool
-    let aired: Aired
-    let duration: String
+    let status: String?
+    let airing: Bool?
+    let aired: Aired?
+    let duration: String?
     let rating: String?
     let score: Double?
     let scoredBy: Int?
     let rank: Int?
-    let popularity: Int
-    let members: Int
-    let favorites: Int
+    let popularity: Int?
+    let members: Int?
+    let favorites: Int?
     let synopsis: String?
     let background: String?
     let season: String?
     let year: Int?
-    let producers: [Producer]
-    let licensors: [Licensor]
-    let studios: [Studio]
-    let genres: [Genre]
-    let explicitGenres: [ExplicitGenre]
-    let themes: [Theme]
-    let demographics: [Demographic]
+    let producers: [Producer]?
+    let licensors: [Licensor]?
+    let studios: [Studio]?
+    let genres: [Genre]?
+    let explicitGenres: [ExplicitGenre]?
+    let themes: [Theme]?
+    let demographics: [Demographic]?
     
     enum CodingKeys: String, CodingKey {
         case malID = "mal_id"
@@ -102,9 +102,9 @@ struct ImageDetails: Codable {
 
 struct Trailer: Codable {
     let youtubeID: String?
-    let url: String
-    let embedURL: String
-    let images: TrailerImages
+    let url: String?
+    let embedURL: String?
+    let images: TrailerImages?
     
     enum CodingKeys: String, CodingKey {
         case youtubeID = "youtube_id"
@@ -115,11 +115,11 @@ struct Trailer: Codable {
 }
 
 struct TrailerImages: Codable {
-    let imageURL: String
-    let smallImageURL: String
-    let mediumImageURL: String
-    let largeImageURL: String
-    let maximumImageURL: String
+    let imageURL: String?
+    let smallImageURL: String?
+    let mediumImageURL: String?
+    let largeImageURL: String?
+    let maximumImageURL: String?
     
     enum CodingKeys: String, CodingKey {
         case imageURL = "image_url"
@@ -169,10 +169,10 @@ struct Producer: Codable {
 }
 
 struct Licensor: Codable {
-    let malID: Int
-    let type: String
-    let name: String
-    let url: String
+    let malID: Int?
+    let type: String?
+    let name: String?
+    let url: String?
     
     enum CodingKeys: String, CodingKey {
         case malID = "mal_id"

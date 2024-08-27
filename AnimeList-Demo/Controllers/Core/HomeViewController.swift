@@ -70,8 +70,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let index = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! LNLatestAnimeTableViewCell
         cell.animeName.text = animeList[index].titleEnglish
-        cell.animeScore.text = "Score: " + String(describing: animeList[index].score!)
-        cell.animeRank.text =  "Rank: #" + String(describing: animeList[index].rank!)
+        cell.animeScore.text = "Score: " + String(describing: animeList[index].score ?? 0)
+        cell.animeRank.text =  "Rank: #" + String(describing: animeList[index].rank ?? 0)
         cell.animeSypnosis.text = animeList[index].synopsis
         
         // Extract the image URL string safely
@@ -92,6 +92,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath)
     -> CGFloat {
             return 180
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let selectedAnime = animeList[indexPath.item]
+        
+        let detailPage = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "detailsPage") as! AnimeDetailsViewController
+        
+        detailPage.anime = selectedAnime
+        
+        // Navigate to DetailViewController
+        navigationController?.pushViewController(detailPage, animated: true)
     }
     
     
