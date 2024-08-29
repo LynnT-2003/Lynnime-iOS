@@ -172,7 +172,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-lo-jD2">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wO7-lo-jD2">
                                                         <rect key="frame" x="5" y="77.333333333333371" width="343" height="19.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                         <nil key="textColor"/>
@@ -186,16 +186,30 @@
                                                     <constraint firstAttribute="trailing" secondItem="Qrv-7w-LCF" secondAttribute="trailing" id="W9F-Q5-F9w"/>
                                                 </constraints>
                                             </stackView>
+                                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHe-Ye-fDo">
+                                                <rect key="frame" x="20" y="626.66666666666663" width="353" height="230"/>
+                                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="230" id="jx0-Dx-JCI"/>
+                                                </constraints>
+                                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsInlineMediaPlayback="YES">
+                                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                                    <wkPreferences key="preferences"/>
+                                                </wkWebViewConfiguration>
+                                            </wkWebView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="hHe-Ye-fDo" secondAttribute="trailing" constant="20" symbolic="YES" id="5Qj-WY-Chp"/>
                                             <constraint firstAttribute="trailing" secondItem="Bew-CD-1mm" secondAttribute="trailing" constant="20" id="6cF-Ea-cz5"/>
                                             <constraint firstItem="Bew-CD-1mm" firstAttribute="leading" secondItem="HSV-LJ-LbQ" secondAttribute="leading" constant="20" id="AND-oQ-gdx"/>
                                             <constraint firstAttribute="trailing" secondItem="L7D-gY-vGY" secondAttribute="trailing" constant="20" id="GVF-w0-6uv"/>
+                                            <constraint firstItem="hHe-Ye-fDo" firstAttribute="leading" secondItem="HSV-LJ-LbQ" secondAttribute="leading" constant="20" symbolic="YES" id="QEz-W9-31k"/>
                                             <constraint firstItem="Bew-CD-1mm" firstAttribute="top" secondItem="L7D-gY-vGY" secondAttribute="bottom" constant="10" id="XIT-34-OxO"/>
                                             <constraint firstItem="L7D-gY-vGY" firstAttribute="leading" secondItem="HSV-LJ-LbQ" secondAttribute="leading" constant="20" id="b2n-vW-CSs"/>
                                             <constraint firstAttribute="height" constant="2000" id="f3X-2N-XI5"/>
                                             <constraint firstItem="L7D-gY-vGY" firstAttribute="top" secondItem="HSV-LJ-LbQ" secondAttribute="top" id="gK8-BR-cwe"/>
+                                            <constraint firstItem="hHe-Ye-fDo" firstAttribute="top" secondItem="Bew-CD-1mm" secondAttribute="bottom" constant="40" id="uDj-tG-aib"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -227,6 +241,7 @@
                         <outlet property="popularity" destination="1cM-wi-cwb" id="KCd-TH-lDT"/>
                         <outlet property="rank" destination="gf5-dB-yN4" id="xct-sC-7h2"/>
                         <outlet property="score" destination="zy0-wm-fie" id="suj-1z-oQ6"/>
+                        <outlet property="trailerWebView" destination="hHe-Ye-fDo" id="3jF-Fl-utC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6R1-k3-8NF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

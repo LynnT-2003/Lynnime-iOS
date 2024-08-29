@@ -18,30 +18,12 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         AnimeListTableView.delegate = self
         AnimeListTableView.dataSource = self
-
-        
-//        let request = LNRequest(
-//            endpoint: .latestAnime
-//        )
-//        print(request.url!)
-        
-//        LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllLatestAnimeResponse.self) { result in
-//            switch result {
-//            case .success(let model):
-//                print(model)
-//            case .failure(let error):
-//                print(String(describing: error))
-//            }
-//        }
         
         
         LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllLatestAnimeResponse.self) { result in
             switch result {
             case .success(let model):
                 print(model.data.count)
-//                for anime in model.data {
-//                    print(anime.titleEnglish ?? "No title available")
-//                }
                 self.animeList = model.data
                 
                 // Reload the table view on the main thread
