@@ -12,4 +12,5 @@ import Foundation
     case latestAnime = "seasons/now"
     case winter2024 = "seasons/2024/winter"
     case upcoming = "seasons/upcoming"
+    case searchAnime = "anime" 
 }

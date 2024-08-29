@@ -15,3 +15,7 @@ struct LNGetAllUpcomingAnimeResponse: Codable {
     let data: [Anime]
 }
 
+struct LNAnimeGetSearchResponse: Codable {
+    let data: [Anime]
+}
+

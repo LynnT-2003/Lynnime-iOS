@@ -282,6 +282,151 @@
             </objects>
             <point key="canvasLocation" x="983.96946564885491" y="1958.4507042253522"/>
         </scene>
+        <!--Search Page View Controller-->
+        <scene sceneID="F7n-c0-M5Q">
+            <objects>
+                <viewController id="71r-O5-rcb" customClass="SearchPageViewController" customModule="AnimeList_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Ph-4S-vJV">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="s7g-N9-hKz">
+                                <rect key="frame" x="16" y="77" width="361" height="692"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="LBd-en-AbA" userLabel="Header">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for anime ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BLz-Tm-OdJ" userLabel="Search">
+                                            <rect key="frame" x="6" y="18" width="349" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="BLz-Tm-OdJ" firstAttribute="top" secondItem="LBd-en-AbA" secondAttribute="top" constant="18" id="BT5-cq-0k9"/>
+                                        <constraint firstAttribute="trailing" secondItem="BLz-Tm-OdJ" secondAttribute="trailing" constant="6" id="VvG-eH-86i"/>
+                                        <constraint firstItem="BLz-Tm-OdJ" firstAttribute="leading" secondItem="LBd-en-AbA" secondAttribute="leading" constant="6" id="dVV-HJ-V3Z"/>
+                                        <constraint firstAttribute="bottom" secondItem="BLz-Tm-OdJ" secondAttribute="bottom" constant="18" id="zHk-lF-WbT"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="180" id="Ghe-XG-nzw" customClass="LNLatestAnimeTableViewCell" customModule="AnimeList_Demo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="130" width="361" height="180"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ghe-XG-nzw" id="3qh-Lq-Hld">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="180"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ZJ-NB-VpP">
+                                                    <rect key="frame" x="0.0" y="13" width="128" height="154"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="128" id="zJ6-Bz-TDC"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="oiN-hC-0rr">
+                                                    <rect key="frame" x="133" y="13" width="213" height="84.333333333333329"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="O8y-z8-r8b">
+                                                            <rect key="frame" x="0.0" y="0.0" width="213" height="47.333333333333336"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anime Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REE-qu-G7p">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="213" height="20.333333333333332"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="220" id="FlH-By-zgx"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="4MI-73-0lt">
+                                                                    <rect key="frame" x="0.0" y="30.333333333333336" width="87" height="17"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OL-GI-kX7">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="37.666666666666664" height="17"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peg-kN-HqU">
+                                                                            <rect key="frame" x="54.666666666666657" y="0.0" width="32.333333333333343" height="17"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="4MI-73-0lt" firstAttribute="top" secondItem="REE-qu-G7p" secondAttribute="bottom" constant="10" id="1T3-BM-IF6"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sypnosis" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9Q-cE-Fwa">
+                                                            <rect key="frame" x="0.0" y="67.333333333333329" width="213" height="17"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="220" id="SWf-6f-NTQ"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5ZJ-NB-VpP" firstAttribute="top" secondItem="3qh-Lq-Hld" secondAttribute="topMargin" id="Bcc-1a-6pR"/>
+                                                <constraint firstItem="5ZJ-NB-VpP" firstAttribute="leading" secondItem="3qh-Lq-Hld" secondAttribute="leading" id="PcL-TW-23M"/>
+                                                <constraint firstAttribute="trailing" secondItem="oiN-hC-0rr" secondAttribute="trailing" constant="15" id="boS-uB-H6n"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="5ZJ-NB-VpP" secondAttribute="bottom" id="lkc-8I-Gz4"/>
+                                                <constraint firstItem="oiN-hC-0rr" firstAttribute="leading" secondItem="5ZJ-NB-VpP" secondAttribute="trailing" constant="5" id="oW9-fy-z37"/>
+                                                <constraint firstItem="oiN-hC-0rr" firstAttribute="top" secondItem="3qh-Lq-Hld" secondAttribute="top" constant="13" id="yT9-zW-tbm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="animeImage" destination="5ZJ-NB-VpP" id="RwO-yo-xza"/>
+                                            <outlet property="animeName" destination="REE-qu-G7p" id="elA-eQ-1UW"/>
+                                            <outlet property="animeRank" destination="peg-kN-HqU" id="SJA-Mm-9mq"/>
+                                            <outlet property="animeScore" destination="7OL-GI-kX7" id="gJl-Kv-Jsb"/>
+                                            <outlet property="animeSypnosis" destination="L9Q-cE-Fwa" id="Y2j-Fc-reH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="8hJ-fH-Dh3"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="fYL-Jo-yFz"/>
+                                </connections>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for anime ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rvF-uP-BqH" userLabel="Search">
+                                <rect key="frame" x="44" y="-17" width="349" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZCL-Ep-9Zk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BLz-Tm-OdJ" firstAttribute="leading" secondItem="1Ph-4S-vJV" secondAttribute="leading" constant="22" id="Ceu-FT-i0E"/>
+                            <constraint firstAttribute="trailing" secondItem="BLz-Tm-OdJ" secondAttribute="trailing" constant="22" id="ChS-vd-h8t"/>
+                            <constraint firstAttribute="bottom" secondItem="BLz-Tm-OdJ" secondAttribute="bottom" constant="687" id="UxR-ko-ixo"/>
+                            <constraint firstItem="s7g-N9-hKz" firstAttribute="leading" secondItem="ZCL-Ep-9Zk" secondAttribute="leading" constant="16" id="af0-Jc-6df"/>
+                            <constraint firstItem="BLz-Tm-OdJ" firstAttribute="top" secondItem="1Ph-4S-vJV" secondAttribute="top" constant="121" id="aqj-zq-d3m"/>
+                            <constraint firstItem="ZCL-Ep-9Zk" firstAttribute="trailing" secondItem="s7g-N9-hKz" secondAttribute="trailing" constant="16" id="cxl-1u-fbV"/>
+                            <constraint firstItem="s7g-N9-hKz" firstAttribute="top" secondItem="1Ph-4S-vJV" secondAttribute="top" constant="77" id="nnL-UW-K3v"/>
+                            <constraint firstItem="s7g-N9-hKz" firstAttribute="bottom" secondItem="ZCL-Ep-9Zk" secondAttribute="bottom" id="zQx-qf-uK1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="u7K-X7-pH1"/>
+                    <connections>
+                        <outlet property="searchBarTextField" destination="BLz-Tm-OdJ" id="V3v-TS-Wfl"/>
+                        <outlet property="searchResultTableView" destination="s7g-N9-hKz" id="GS8-WN-2EV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ith-UB-O2T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1924.4274809160304" y="1547.8873239436621"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dLV-57-QkS">
             <objects>
@@ -326,6 +471,9 @@
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="71r-O5-rcb" kind="relationship" relationship="rootViewController" id="coA-yD-Sdm"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Asl-YI-cWk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -79,3 +79,13 @@ extension LNRequest {
 extension LNRequest {
     static let listUpcomingAnimesRequests = LNRequest(endpoint: .upcoming)
 }
+
+extension LNRequest {
+    static func searchAnimeRequest(query: String) -> LNRequest {
+        return LNRequest(
+            endpoint: .searchAnime,
+            queryParameters: [URLQueryItem(name: "q", value: query)]
+        )
+    }
+}
+
