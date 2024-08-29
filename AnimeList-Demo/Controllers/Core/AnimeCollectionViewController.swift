@@ -11,8 +11,15 @@ import Kingfisher
 class AnimeCollectionViewController: UIViewController {
     
     @IBOutlet weak var AnimeListTableView: UITableView!
+    @IBOutlet weak var sortingSegmentedControl: UISegmentedControl!
     
     var animeList: [Anime] = []
+    
+    enum SortingOption {
+        case popularity
+        case rank
+    }
+
     
     // Enum to specify the request type
     enum AnimeRequestType {
@@ -23,10 +30,16 @@ class AnimeCollectionViewController: UIViewController {
     // Property to store the request type
     var requestType: AnimeRequestType = .latest
     
+    // Property to store the current sorting option
+    var sortingOption: SortingOption = .popularity
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AnimeListTableView.delegate = self
         AnimeListTableView.dataSource = self
+        
+        sortingSegmentedControl.setTitle("Popularity", forSegmentAt: 0)
+        sortingSegmentedControl.setTitle("Rank", forSegmentAt: 1)
         
         // Fetch data based on the request type
         switch requestType {
@@ -36,10 +49,28 @@ class AnimeCollectionViewController: UIViewController {
         case .upcoming:
             fetchUpcomingAnimes()
             self.navigationItem.title = "Upcoming Animes"
-        }	
+        }
+        
+        
+        // Set the initial sorting option in segmented control
+        sortingSegmentedControl.selectedSegmentIndex = 0
         
     }
     
+    @IBAction func sortingOptionChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            sortingOption = .popularity
+            animeList.sort { ($0.popularity ?? 0) < ($1.popularity ?? 0) }
+        case 1:
+            sortingOption = .rank
+            animeList.sort { $0.rank ?? 0 < $1.rank ?? 0}
+        default:
+            break
+        }
+        AnimeListTableView.reloadData()
+            AnimeListTableView.reloadData()
+    }
     
     
     private func fetchLatestAnimes() {

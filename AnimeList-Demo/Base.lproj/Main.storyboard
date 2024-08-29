@@ -18,12 +18,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XbX-ou-GYg">
-                                <rect key="frame" x="16" y="103" width="361" height="666"/>
+                                <rect key="frame" x="16" y="77" width="361" height="692"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="uzW-Vn-M2Y" userLabel="Header">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="hAV-Mg-UfB">
+                                            <rect key="frame" x="12" y="20" width="198.66666666666666" height="40"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6h-FT-F6L">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50.666666666666664" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jfW-kU-bCf">
+                                                    <rect key="frame" x="67.666666666666686" y="0.0" width="131" height="41"/>
+                                                    <segments>
+                                                        <segment title="First"/>
+                                                        <segment title="Second"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="sortingOptionChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="YkK-5C-fRQ"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="hAV-Mg-UfB" firstAttribute="top" secondItem="uzW-Vn-M2Y" secondAttribute="top" constant="20" id="Ooa-tQ-6dO"/>
+                                        <constraint firstAttribute="bottom" secondItem="hAV-Mg-UfB" secondAttribute="bottom" constant="20" id="b7k-WR-QHp"/>
+                                        <constraint firstItem="hAV-Mg-UfB" firstAttribute="leading" secondItem="uzW-Vn-M2Y" secondAttribute="leading" constant="12" id="eBL-MH-ldx"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="180" id="sc9-4S-Cdl" customClass="LNLatestAnimeTableViewCell" customModule="AnimeList_Demo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="180"/>
+                                        <rect key="frame" x="0.0" y="130" width="361" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sc9-4S-Cdl" id="PB8-do-b9b">
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="180"/>
@@ -114,6 +147,7 @@
                     <navigationItem key="navigationItem" id="tEB-St-WbP"/>
                     <connections>
                         <outlet property="AnimeListTableView" destination="XbX-ou-GYg" id="eC9-in-mHK"/>
+                        <outlet property="sortingSegmentedControl" destination="jfW-kU-bCf" id="KwW-y2-JPV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
