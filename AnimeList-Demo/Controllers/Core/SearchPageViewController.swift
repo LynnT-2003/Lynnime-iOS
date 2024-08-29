@@ -18,6 +18,7 @@ class SearchPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "Search"
         
         searchBarTextField.delegate = self
@@ -111,8 +112,5 @@ extension SearchPageViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(detailPage, animated: true)
         
     }
-    
-    
-
     
 }

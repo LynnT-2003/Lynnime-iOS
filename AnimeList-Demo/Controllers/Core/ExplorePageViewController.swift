@@ -74,6 +74,11 @@ class ExplorePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // NavigationItem Title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        self.navigationItem.title = "Explore Page"
+        
         // Set up delegates and data sources for collection views.
         animeCollectionView.delegate = self
         animeCollectionView.dataSource = self
@@ -131,6 +136,15 @@ class ExplorePageViewController: UIViewController {
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        // Ensure the large title is displayed
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
@@ -237,6 +251,7 @@ extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewD
                 .instantiateViewController(withIdentifier: "detailsPage") as! AnimeDetailsViewController
             
             detailPage.anime = selectedAnime
+            detailPage.navigationItem.largeTitleDisplayMode = .never
             
             // Navigate to DetailViewController
             navigationController?.pushViewController(detailPage, animated: true)
@@ -249,6 +264,7 @@ extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewD
                 .instantiateViewController(withIdentifier: "detailsPage") as! AnimeDetailsViewController
             
             detailPage.anime = selectedAnime
+            detailPage.navigationItem.largeTitleDisplayMode = .never
             
             // Navigate to DetailViewController
             navigationController?.pushViewController(detailPage, animated: true)

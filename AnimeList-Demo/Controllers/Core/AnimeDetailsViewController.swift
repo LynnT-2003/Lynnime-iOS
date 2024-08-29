@@ -23,6 +23,7 @@ class AnimeDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationItem.title = "Details"
 
         guard let anime = anime else { return }
