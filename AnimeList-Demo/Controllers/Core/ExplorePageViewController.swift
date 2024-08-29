@@ -9,6 +9,9 @@ import UIKit
 
 class FooterView: UICollectionReusableView {
     
+    // Define a closure to handle button tap events
+    var onButtonTapped: (() -> Void)?
+    
     // Button to "View All"
     let viewAllButton: UIButton = {
         let button = UIButton(type: .system)
@@ -30,19 +33,27 @@ class FooterView: UICollectionReusableView {
         super.init(frame: frame)
         addSubview(viewAllButton)
         
-        // Constraints
+        // Set up constraints
         NSLayoutConstraint.activate([
             viewAllButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            viewAllButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -40), // Adjust 10 to your preferred offset
+            viewAllButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -40), // Adjust if needed
             viewAllButton.widthAnchor.constraint(equalToConstant: 40),
             viewAllButton.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        // Add target for button tap
+        viewAllButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc private func buttonTapped() {
+        onButtonTapped?()
+    }
 }
+
 
 /// A view controller that manages and displays anime collections.
 class ExplorePageViewController: UIViewController {
@@ -106,20 +117,38 @@ class ExplorePageViewController: UIViewController {
         }
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            if kind == UICollectionView.elementKindSectionFooter {
-                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath) as! FooterView
-                footerView.viewAllButton.addTarget(self, action: #selector(viewAllTapped(_:)), for: .touchUpInside)
-                return footerView
+        if kind == UICollectionView.elementKindSectionFooter {
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath) as! FooterView
+            //                footerView.viewAllButton.addTarget(self, action: #selector(viewAllTapped(_:)), for: .touchUpInside)
+            
+            // Configure the button tap closure based on collection view
+            if collectionView == self.animeCollectionView {
+                footerView.onButtonTapped = {
+                    self.showAlert(message: "You have clicked on all latest anime collection list.")
+                }
+            } else if collectionView == self.upcomingAnimeCollectionView {
+                footerView.onButtonTapped = {
+                    self.showAlert(message: "You have clicked on all upcoming anime collection list.")
+                }
             }
-            return UICollectionReusableView()
+            return footerView
         }
-        
-        @objc func viewAllTapped(_ sender: UIButton) {
-            // Handle "View All" button tap
-            let alert = UIAlertController(title: "View All", message: "You tapped the View All button.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true, completion: nil)
-        }
+        return UICollectionReusableView()
+    }
+    
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "View All", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func viewAllTapped(_ sender: UIButton) {
+        // Handle "View All" button tap
+        let alert = UIAlertController(title: "View All", message: "You tapped the View All button.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -152,7 +181,7 @@ extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewD
         if collectionView == animeCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! DemoCollectionViewCell
             let anime = latestAnimeList[index]
-
+            
             // Configure cell for latest anime.
             let imageUrlString = anime.images.jpg.largeImageURL
             if let imageUrl = URL(string: imageUrlString) {
@@ -161,13 +190,13 @@ extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.image.image = UIImage(named: "placeholder_image")
             }
             cell.name.text = anime.titleEnglish ?? anime.titleJapanese
-
+            
             return cell
-
+            
         } else if collectionView == upcomingAnimeCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "upcomingCell", for: indexPath) as! DemoCollectionViewCell
             let anime = upcomingAnimeList[index]
-
+            
             // Configure cell for upcoming anime.
             let imageUrlString = anime.images.jpg.largeImageURL
             if let imageUrl = URL(string: imageUrlString) {
@@ -176,10 +205,10 @@ extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewD
                 cell.image.image = UIImage(named: "placeholder_image")
             }
             cell.name.text = anime.titleEnglish ?? anime.titleJapanese
- 
+            
             return cell
         }
-
+        
         return UICollectionViewCell()
     }
     
