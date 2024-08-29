@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class HomeViewController: UIViewController {
-
+    
     @IBOutlet weak var AnimeListTableView: UITableView!
     
     var animeList: [Anime] = []
@@ -34,10 +34,10 @@ class HomeViewController: UIViewController {
                 print(String(describing: error))
             }
         }
-
+        
         
     }
-
+    
 }
 
 
@@ -73,7 +73,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath)
     -> CGFloat {
-            return 180
+        return 180
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -87,6 +87,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         // Navigate to DetailViewController
         navigationController?.pushViewController(detailPage, animated: true)
+        
     }
     
     

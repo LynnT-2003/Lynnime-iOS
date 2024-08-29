@@ -7,6 +7,43 @@
 
 import UIKit
 
+class FooterView: UICollectionReusableView {
+    
+    // Button to "View All"
+    let viewAllButton: UIButton = {
+        let button = UIButton(type: .system)
+        
+        // Create the SF Symbol image with a specific font size
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold) // Adjust size and weight
+        let symbolImage = UIImage(systemName: "chevron.right", withConfiguration: symbolConfig)
+        button.setImage(symbolImage, for: .normal) // Set the SF Symbol image
+        
+        button.backgroundColor = UIColor(white: 0.9, alpha: 0.5) // Light gray with less opacity
+        button.setTitleColor(.black, for: .normal) // Text color for contrast
+        button.layer.cornerRadius = 20 // Adjust for rounded corners
+        button.layer.masksToBounds = true // Ensure rounded corners are visible
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(viewAllButton)
+        
+        // Constraints
+        NSLayoutConstraint.activate([
+            viewAllButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            viewAllButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -40), // Adjust 10 to your preferred offset
+            viewAllButton.widthAnchor.constraint(equalToConstant: 40),
+            viewAllButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 /// A view controller that manages and displays anime collections.
 class ExplorePageViewController: UIViewController {
     
@@ -32,6 +69,10 @@ class ExplorePageViewController: UIViewController {
         
         upcomingAnimeCollectionView.delegate = self
         upcomingAnimeCollectionView.dataSource = self
+        
+        animeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
+        upcomingAnimeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
+        
         
         // Fetch and display the latest anime list.
         LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
@@ -64,6 +105,21 @@ class ExplorePageViewController: UIViewController {
             }
         }
     }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+            if kind == UICollectionView.elementKindSectionFooter {
+                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath) as! FooterView
+                footerView.viewAllButton.addTarget(self, action: #selector(viewAllTapped(_:)), for: .touchUpInside)
+                return footerView
+            }
+            return UICollectionReusableView()
+        }
+        
+        @objc func viewAllTapped(_ sender: UIButton) {
+            // Handle "View All" button tap
+            let alert = UIAlertController(title: "View All", message: "You tapped the View All button.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true, completion: nil)
+        }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -176,6 +232,10 @@ extension ExplorePageViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10 // Adjust as needed.
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: 90, height: 270) // Adjust height as needed
     }
     
     

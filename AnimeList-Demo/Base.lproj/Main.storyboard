@@ -109,7 +109,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="tEB-St-WbP"/>
                     <connections>
@@ -315,7 +315,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n1L-7F-E0g">
-                                                <rect key="frame" x="16" y="29" width="361" height="270"/>
+                                                <rect key="frame" x="16" y="25.333333333333343" width="361" height="270"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="270" id="4Fj-C1-Eal"/>
@@ -368,19 +368,19 @@
                                                 </cells>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Anime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJ5-Hu-bTe">
-                                                <rect key="frame" x="16" y="0.0" width="100" height="21"/>
+                                                <rect key="frame" x="16" y="0.0" width="100" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Anime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qhq-Ix-sAv">
-                                                <rect key="frame" x="16" y="314" width="131" height="21"/>
+                                                <rect key="frame" x="16" y="310.33333333333331" width="131" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cyG-Gl-g30">
-                                                <rect key="frame" x="16" y="343" width="361" height="270"/>
+                                                <rect key="frame" x="16" y="339.33333333333331" width="361" height="269.99999999999994"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="270" id="4lT-g5-tXT"/>
@@ -436,7 +436,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="cyG-Gl-g30" firstAttribute="leading" secondItem="dXs-7c-tfp" secondAttribute="leading" constant="16" id="6oI-q9-fvZ"/>
-                                            <constraint firstItem="n1L-7F-E0g" firstAttribute="top" secondItem="MJ5-Hu-bTe" secondAttribute="bottom" constant="8" symbolic="YES" id="A97-kb-128"/>
+                                            <constraint firstItem="n1L-7F-E0g" firstAttribute="top" secondItem="MJ5-Hu-bTe" secondAttribute="bottom" constant="5" id="A97-kb-128"/>
                                             <constraint firstItem="MJ5-Hu-bTe" firstAttribute="top" secondItem="dXs-7c-tfp" secondAttribute="top" id="DVs-Ns-1GI"/>
                                             <constraint firstAttribute="height" constant="1500" id="KIc-6B-97C"/>
                                             <constraint firstItem="n1L-7F-E0g" firstAttribute="leading" secondItem="dXs-7c-tfp" secondAttribute="leading" constant="16" id="YIo-ll-CRh"/>
@@ -477,7 +477,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="idN-JM-jsI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1912" y="578"/>
+            <point key="canvasLocation" x="1910.6870229007632" y="577.46478873239437"/>
         </scene>
     </scenes>
     <resources>
