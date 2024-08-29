@@ -22,6 +22,8 @@ class AnimeDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = "Details"
 
         guard let anime = anime else { return }
         let imageUrlString = anime.images.jpg.largeImageURL

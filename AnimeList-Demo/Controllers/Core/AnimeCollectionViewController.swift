@@ -32,9 +32,11 @@ class AnimeCollectionViewController: UIViewController {
         switch requestType {
         case .latest:
             fetchLatestAnimes()
+            self.navigationItem.title = "Latest Animes"
         case .upcoming:
             fetchUpcomingAnimes()
-        }
+            self.navigationItem.title = "Upcoming Animes"
+        }	
         
     }
     
