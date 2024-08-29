@@ -16,7 +16,7 @@
 		BA44C1FB2C7C4F04003BE98F /* AnimeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1FA2C7C4F04003BE98F /* AnimeDetailsViewController.swift */; };
 		BA9D787E2C7A8E6C00D76956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D787D2C7A8E6C00D76956 /* AppDelegate.swift */; };
 		BA9D78802C7A8E6C00D76956 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D787F2C7A8E6C00D76956 /* SceneDelegate.swift */; };
-		BA9D78822C7A8E6C00D76956 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */; };
+		BA9D78822C7A8E6C00D76956 /* AnimeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D78812C7A8E6C00D76956 /* AnimeCollectionViewController.swift */; };
 		BA9D78852C7A8E6C00D76956 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BA9D78842C7A8E6C00D76956 /* Base */; };
 		BA9D78872C7A8E6E00D76956 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA9D78862C7A8E6E00D76956 /* Assets.xcassets */; };
 		BA9D788A2C7A8E6E00D76956 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BA9D78892C7A8E6E00D76956 /* Base */; };
@@ -37,7 +37,7 @@
 		BA9D787A2C7A8E6C00D76956 /* AnimeList-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AnimeList-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9D787D2C7A8E6C00D76956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA9D787F2C7A8E6C00D76956 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BA9D78812C7A8E6C00D76956 /* AnimeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewController.swift; sourceTree = "<group>"; };
 		BA9D78842C7A8E6C00D76956 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BA9D78862C7A8E6E00D76956 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA9D78892C7A8E6E00D76956 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		BA9D78942C7A8F8000D76956 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				BA9D78812C7A8E6C00D76956 /* HomeViewController.swift */,
+				BA9D78812C7A8E6C00D76956 /* AnimeCollectionViewController.swift */,
 				BA44C1F62C7C3237003BE98F /* ExplorePageViewController.swift */,
 				BA44C1FA2C7C4F04003BE98F /* AnimeDetailsViewController.swift */,
 			);
@@ -243,7 +243,7 @@
 				BA9D789A2C7A952D00D76956 /* LNRequest.swift in Sources */,
 				BA9D78982C7A94C000D76956 /* LNAnime.swift in Sources */,
 				BA9D789C2C7A957300D76956 /* LNEndpoint.swift in Sources */,
-				BA9D78822C7A8E6C00D76956 /* HomeViewController.swift in Sources */,
+				BA9D78822C7A8E6C00D76956 /* AnimeCollectionViewController.swift in Sources */,
 				BA9D789E2C7A9E3500D76956 /* LNService.swift in Sources */,
 				BA44C1E82C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift in Sources */,
 				BA9D787E2C7A8E6C00D76956 /* AppDelegate.swift in Sources */,

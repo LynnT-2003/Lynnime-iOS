@@ -8,18 +8,39 @@
 import UIKit
 import Kingfisher
 
-class HomeViewController: UIViewController {
+class AnimeCollectionViewController: UIViewController {
     
     @IBOutlet weak var AnimeListTableView: UITableView!
     
     var animeList: [Anime] = []
+    
+    // Enum to specify the request type
+    enum AnimeRequestType {
+        case latest
+        case upcoming
+    }
+    
+    // Property to store the request type
+    var requestType: AnimeRequestType = .latest
     
     override func viewDidLoad() {
         super.viewDidLoad()
         AnimeListTableView.delegate = self
         AnimeListTableView.dataSource = self
         
+        // Fetch data based on the request type
+        switch requestType {
+        case .latest:
+            fetchLatestAnimes()
+        case .upcoming:
+            fetchUpcomingAnimes()
+        }
         
+    }
+    
+    
+    
+    private func fetchLatestAnimes() {
         LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllLatestAnimeResponse.self) { result in
             switch result {
             case .success(let model):
@@ -34,15 +55,30 @@ class HomeViewController: UIViewController {
                 print(String(describing: error))
             }
         }
-        
-        
+    }
+    
+    private func fetchUpcomingAnimes() {
+        LNService.shared.execute(.listUpcomingAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
+            switch result {
+            case .success(let model):
+                print(model.data.count)
+                self.animeList = model.data
+                
+                // Reload the table view on the main thread
+                DispatchQueue.main.async {
+                    self.AnimeListTableView.reloadData()
+                }
+            case .failure(let error):
+                print(String(describing: error))
+            }
+        }
     }
     
 }
 
 
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension AnimeCollectionViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return animeList.count

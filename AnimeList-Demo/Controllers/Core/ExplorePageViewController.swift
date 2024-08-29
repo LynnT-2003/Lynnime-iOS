@@ -85,11 +85,26 @@ class ExplorePageViewController: UIViewController {
         upcomingAnimeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
         
         
+        //        // Fetch and display the latest anime list.
+        //        LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
+        //            switch result {
+        //            case .success(let model):
+        //                self.latestAnimeList = model.data
+        //                DispatchQueue.main.async {
+        //                    self.animeCollectionView.reloadData()
+        //                }
+        //
+        //            case .failure(let error):
+        //                print(String(describing: error))
+        //            }
+        //        }
+        
         // Fetch and display the latest anime list.
         LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
             switch result {
             case .success(let model):
-                self.latestAnimeList = model.data
+                // Trim the list to only include the first 5 items
+                self.latestAnimeList = Array(model.data.prefix(10))
                 DispatchQueue.main.async {
                     self.animeCollectionView.reloadData()
                 }
@@ -103,7 +118,7 @@ class ExplorePageViewController: UIViewController {
         LNService.shared.execute(.listUpcomingAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
             switch result {
             case .success(let model):
-                self.upcomingAnimeList = model.data
+                self.upcomingAnimeList = Array(model.data.prefix(10))
                 for anime in model.data {
                     print(anime.titleEnglish ?? anime.titleJapanese)
                 }
@@ -116,26 +131,32 @@ class ExplorePageViewController: UIViewController {
             }
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
             let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerView", for: indexPath) as! FooterView
-            //                footerView.viewAllButton.addTarget(self, action: #selector(viewAllTapped(_:)), for: .touchUpInside)
             
-            // Configure the button tap closure based on collection view
-            if collectionView == self.animeCollectionView {
-                footerView.onButtonTapped = {
-                    self.showAlert(message: "You have clicked on all latest anime collection list.")
+            // Configure the button tap closure based on the collection view
+            footerView.onButtonTapped = {
+                let detailPage = UIStoryboard(name: "Main", bundle: .main)
+                    .instantiateViewController(withIdentifier: "animeCollectionPage") as! AnimeCollectionViewController
+                
+                // Check which collection view's button was tapped and set the request type
+                if collectionView == self.animeCollectionView {
+                    detailPage.requestType = .latest
+                } else if collectionView == self.upcomingAnimeCollectionView {
+                    detailPage.requestType = .upcoming
                 }
-            } else if collectionView == self.upcomingAnimeCollectionView {
-                footerView.onButtonTapped = {
-                    self.showAlert(message: "You have clicked on all upcoming anime collection list.")
-                }
+                
+                // Navigate to AnimeCollectionViewController
+                self.navigationController?.pushViewController(detailPage, animated: true)
             }
+            
             return footerView
         }
         return UICollectionReusableView()
     }
-    
+
     
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "View All", message: message, preferredStyle: .alert)
@@ -143,12 +164,6 @@ class ExplorePageViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func viewAllTapped(_ sender: UIButton) {
-        // Handle "View All" button tap
-        let alert = UIAlertController(title: "View All", message: "You tapped the View All button.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true, completion: nil)
-    }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
