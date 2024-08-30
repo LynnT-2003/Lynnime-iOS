@@ -64,9 +64,11 @@ class ExplorePageViewController: UIViewController {
     
     /// List of the latest anime.
     var latestAnimeList: [Anime] = []
+    var allLatestAnimeList: [Anime] = []
     
     /// List of upcoming anime.
     var upcomingAnimeList: [Anime] = []
+    var allUpcomingAnimeList: [Anime] = []
     
     @IBOutlet weak var headerImageView: UIImageView!
     
@@ -119,6 +121,7 @@ class ExplorePageViewController: UIViewController {
             switch result {
             case .success(let model):
                 // Trim the list to only include the first 5 items
+                self.allLatestAnimeList = Array(model.data)
                 self.latestAnimeList = Array(model.data.prefix(10))
                 DispatchQueue.main.async {
                     self.animeCollectionView.reloadData()
@@ -133,10 +136,8 @@ class ExplorePageViewController: UIViewController {
         LNService.shared.execute(.listUpcomingAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
             switch result {
             case .success(let model):
+                self.allUpcomingAnimeList = Array(model.data)
                 self.upcomingAnimeList = Array(model.data.prefix(10))
-                for anime in model.data {
-                    print(anime.titleEnglish ?? anime.titleJapanese)
-                }
                 DispatchQueue.main.async {
                     self.startImageRotation(with: model.data)
                     self.upcomingAnimeCollectionView.reloadData()
@@ -150,11 +151,13 @@ class ExplorePageViewController: UIViewController {
     
     func startImageRotation(with data: [Anime]) {
         // Invalidate any existing timer
-        timer?.invalidate()
+//        timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             let randomIndex = Int.random(in: 0..<data.count)
             self.currentImageIndex = randomIndex
+
+            print("Currently on:", randomIndex)
             let randomImageUrlString = data[randomIndex].images.jpg.largeImageURL
             if let randomImageUrl = URL(string: randomImageUrlString) {
                 UIView.transition(with: self.headerImageView, duration: 0.7, options: .transitionCrossDissolve, animations: {
@@ -167,7 +170,8 @@ class ExplorePageViewController: UIViewController {
     @objc func headerImageTapped() {
         guard let currentIndex = currentImageIndex else { return }
         
-        let selectedAnime = upcomingAnimeList[currentIndex]
+        print("Tapped on:", currentIndex)
+        let selectedAnime = allUpcomingAnimeList[currentIndex]
         
         let detailPage = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "detailsPage") as! AnimeDetailsViewController
@@ -181,11 +185,11 @@ class ExplorePageViewController: UIViewController {
 
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // Invalidate the timer when the view is about to disappear
-        timer?.invalidate()
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        // Invalidate the timer when the view is about to disappear
+//        timer?.invalidate()
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
