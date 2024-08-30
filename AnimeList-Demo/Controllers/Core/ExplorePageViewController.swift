@@ -58,7 +58,21 @@ class FooterView: UICollectionReusableView {
 /// A view controller that manages and displays anime collections.
 class ExplorePageViewController: UIViewController {
     
-    
+    var options: [String: String] = [
+        "Action": "1",
+        "Adventure": "2",
+        "Comedy": "4",
+        "Drama": "8",
+        "Fantasy": "10",
+        "Mystery": "7",
+        "Romance": "22",
+        "Sci-Fi": "24",
+        "Award Winning": "46",
+        "Slice of Life": "36",
+        "Ecchi": "9",
+        "Hentai": "12",
+    ]
+
     var timer: Timer?
     var currentImageIndex: Int?
     
@@ -77,9 +91,45 @@ class ExplorePageViewController: UIViewController {
     
     /// Collection view for displaying upcoming anime.
     @IBOutlet weak var upcomingAnimeCollectionView: UICollectionView!
+    
+    @IBOutlet weak var genreAnimeTableView: UITableView!
+    
+    
+    @IBOutlet weak var genreAnimeButton: UIButton!
+    
+    var menuChildren: [UIMenuElement] = []
+    var tableViewResult: [Anime] = []
+
+    
     /// Called after the controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let sortedGenreOptions = options.sorted { $0.key < $1.key }
+        
+        let actionClosure = { [weak self] (action: UIAction) in
+            guard let self = self else { return }
+            if let query = options[action.title] {  // Lookup the query using the title
+                print("Selected genre: \(action.title) with query: \(query)")
+                self.searchGenreAnime(query: query)  // Pass the query value to the search function
+            } else {
+                print("Query not found for selected genre: \(action.title)")
+            }
+        }
+        
+        var menuChildren: [UIAction] = []
+        for (title, _) in sortedGenreOptions {
+            menuChildren.append(UIAction(title: title, handler: actionClosure))
+        }
+
+        genreAnimeButton.menu = UIMenu(options: .displayInline, children: menuChildren)
+        genreAnimeButton.showsMenuAsPrimaryAction = true
+        genreAnimeButton.changesSelectionAsPrimaryAction = true
+        
+        if let actionQuery = options["Action"] {
+            searchGenreAnime(query: actionQuery)
+            print("Default genre fetched: Action")
+        }
         
         // Set up the tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerImageTapped))
@@ -97,6 +147,9 @@ class ExplorePageViewController: UIViewController {
         
         upcomingAnimeCollectionView.delegate = self
         upcomingAnimeCollectionView.dataSource = self
+        
+        genreAnimeTableView.delegate = self
+        genreAnimeTableView.dataSource = self
         
         animeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
         upcomingAnimeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
@@ -126,6 +179,7 @@ class ExplorePageViewController: UIViewController {
                 self.upcomingAnimeList = Array(model.data.prefix(10))
                 DispatchQueue.main.async {
                     self.startImageRotation(with: model.data)
+                    self.genreAnimeTableView.reloadData()  // here
                     self.upcomingAnimeCollectionView.reloadData()
                 }
                 
@@ -195,6 +249,26 @@ class ExplorePageViewController: UIViewController {
             return footerView
         }
         return UICollectionReusableView()
+    }
+    
+    private func searchGenreAnime(query: String) {
+        let request = LNRequest.genreAnimeRequest(query: query)
+        LNService.shared.execute(request, expecting: LNAnimeGetSearchResponse.self) { result in
+            switch result {
+            case .success(let genreSearchResults):
+                print("Found anime:", query)
+                for anime in genreSearchResults.data {
+                    print(anime.titleEnglish ?? anime.titleJapanese)
+                }
+                self.tableViewResult = genreSearchResults.data
+                
+                DispatchQueue.main.async {
+                    self.genreAnimeTableView.reloadData()
+                }
+            case .failure(let error):
+                print("Failed to search anime: \(error)")
+            }
+        }
     }
     
     
@@ -304,6 +378,7 @@ extension ExplorePageViewController: UICollectionViewDelegate, UICollectionViewD
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
+
 /// Extension to handle collection view layout methods.
 extension ExplorePageViewController: UICollectionViewDelegateFlowLayout {
     
@@ -324,5 +399,45 @@ extension ExplorePageViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 90, height: 270) // Adjust height as needed
     }
     
+    
+}
+
+// MARK: - UITableViewDelegate
+
+extension ExplorePageViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewResult.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        
+        let index = indexPath.row
+        let cell = tableView.dequeueReusableCell(withIdentifier: "genreAnimeCell") as! LNLatestAnimeTableViewCell
+        cell.animeName.text = tableViewResult[index].titleEnglish ?? allUpcomingAnimeList[index].titleJapanese
+        cell.animeScore.text = "Score: " + String(describing: tableViewResult[index].score ?? 0)
+        cell.animeRank.text =  "Rank: #" + String(describing: tableViewResult[index].rank ?? 0)
+        cell.animeSypnosis.text = tableViewResult[index].synopsis
+        
+        // Extract the image URL string safely
+        let imageUrlString = tableViewResult[index].images.jpg.largeImageURL
+        
+        // Create a URL from the string
+        if let imageUrl = URL(string: imageUrlString) {
+            // Use Kingfisher to load the image from the URL
+            cell.animeImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholder_image"))
+        } else {
+            // Use a placeholder image if the URL is invalid or missing
+            cell.animeImage.image = UIImage(named: "placeholder_image")
+        }
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath)
+    -> CGFloat {
+        return 180
+    }
     
 }

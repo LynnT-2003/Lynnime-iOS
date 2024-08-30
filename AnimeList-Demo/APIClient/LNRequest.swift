@@ -89,3 +89,13 @@ extension LNRequest {
     }
 }
 
+extension LNRequest {
+    static func genreAnimeRequest(query: String) -> LNRequest {
+        return LNRequest (
+            endpoint: .searchAnime,
+            queryParameters: [URLQueryItem(name: "genres", value: query),
+                              URLQueryItem(name: "order_by", value: "score"),
+                              URLQueryItem(name: "sort", value: "desc")]
+        )
+    }
+}
