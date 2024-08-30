@@ -156,8 +156,6 @@ class ExplorePageViewController: UIViewController {
         timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             let randomIndex = Int.random(in: 0..<data.count)
             self.currentImageIndex = randomIndex
-
-            print("Currently on:", randomIndex)
             let randomImageUrlString = data[randomIndex].images.jpg.largeImageURL
             if let randomImageUrl = URL(string: randomImageUrlString) {
                 UIView.transition(with: self.headerImageView, duration: 0.7, options: .transitionCrossDissolve, animations: {
@@ -169,8 +167,6 @@ class ExplorePageViewController: UIViewController {
     
     @objc func headerImageTapped() {
         guard let currentIndex = currentImageIndex else { return }
-        
-        print("Tapped on:", currentIndex)
         let selectedAnime = allUpcomingAnimeList[currentIndex]
         
         let detailPage = UIStoryboard(name: "Main", bundle: .main)

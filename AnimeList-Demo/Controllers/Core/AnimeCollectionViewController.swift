@@ -120,7 +120,7 @@ extension AnimeCollectionViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! LNLatestAnimeTableViewCell
-        cell.animeName.text = animeList[index].titleEnglish
+        cell.animeName.text = animeList[index].titleEnglish ?? animeList[index].titleJapanese
         cell.animeScore.text = "Score: " + String(describing: animeList[index].score ?? 0)
         cell.animeRank.text =  "Rank: #" + String(describing: animeList[index].rank ?? 0)
         cell.animeSypnosis.text = animeList[index].synopsis

@@ -74,7 +74,7 @@ extension SearchPageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! LNLatestAnimeTableViewCell
-        cell.animeName.text = searchResult[index].titleEnglish
+        cell.animeName.text = searchResult[index].titleEnglish ?? searchResult[index].titleJapanese
         cell.animeScore.text = "Score: " + String(describing: searchResult[index].score ?? 0)
         cell.animeRank.text =  "Rank: #" + String(describing: searchResult[index].rank ?? 0)
         cell.animeSypnosis.text = searchResult[index].synopsis
