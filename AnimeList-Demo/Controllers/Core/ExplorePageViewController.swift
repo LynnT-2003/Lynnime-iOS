@@ -102,20 +102,6 @@ class ExplorePageViewController: UIViewController {
         upcomingAnimeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
         
         
-        //        // Fetch and display the latest anime list.
-        //        LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
-        //            switch result {
-        //            case .success(let model):
-        //                self.latestAnimeList = model.data
-        //                DispatchQueue.main.async {
-        //                    self.animeCollectionView.reloadData()
-        //                }
-        //
-        //            case .failure(let error):
-        //                print(String(describing: error))
-        //            }
-        //        }
-        
         // Fetch and display the latest anime list.
         LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
             switch result {
@@ -150,8 +136,6 @@ class ExplorePageViewController: UIViewController {
     }
     
     func startImageRotation(with data: [Anime]) {
-        // Invalidate any existing timer
-//        timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             let randomIndex = Int.random(in: 0..<data.count)
@@ -178,14 +162,6 @@ class ExplorePageViewController: UIViewController {
         // Navigate to DetailViewController
         navigationController?.pushViewController(detailPage, animated: true)
     }
-
-    
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        // Invalidate the timer when the view is about to disappear
-//        timer?.invalidate()
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)

@@ -458,11 +458,11 @@
             </objects>
             <point key="canvasLocation" x="114" y="789"/>
         </scene>
-        <!--Favorites-->
+        <!--Search-->
         <scene sceneID="kDd-aT-KfL">
             <objects>
                 <navigationController id="DbJ-Ri-AyY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorites" selectedImage="heart" catalog="system" id="cov-gO-zoi"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="cov-gO-zoi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4qV-xT-9Yi">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -666,8 +666,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="heart" catalog="system" width="128" height="107"/>
         <image name="house" catalog="system" width="128" height="104"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
