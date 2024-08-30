@@ -58,21 +58,31 @@ class FooterView: UICollectionReusableView {
 /// A view controller that manages and displays anime collections.
 class ExplorePageViewController: UIViewController {
     
+    
+    var timer: Timer?
+    var currentImageIndex: Int?
+    
     /// List of the latest anime.
     var latestAnimeList: [Anime] = []
     
     /// List of upcoming anime.
     var upcomingAnimeList: [Anime] = []
     
+    @IBOutlet weak var headerImageView: UIImageView!
+    
     /// Collection view for displaying latest anime.
     @IBOutlet weak var animeCollectionView: UICollectionView!
     
     /// Collection view for displaying upcoming anime.
     @IBOutlet weak var upcomingAnimeCollectionView: UICollectionView!
-    
     /// Called after the controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up the tap gesture recognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerImageTapped))
+        headerImageView.isUserInteractionEnabled = true
+        headerImageView.addGestureRecognizer(tapGesture)
         
         // NavigationItem Title
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -128,6 +138,7 @@ class ExplorePageViewController: UIViewController {
                     print(anime.titleEnglish ?? anime.titleJapanese)
                 }
                 DispatchQueue.main.async {
+                    self.startImageRotation(with: model.data)
                     self.upcomingAnimeCollectionView.reloadData()
                 }
                 
@@ -137,6 +148,45 @@ class ExplorePageViewController: UIViewController {
         }
     }
     
+    func startImageRotation(with data: [Anime]) {
+        // Invalidate any existing timer
+        timer?.invalidate()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+            let randomIndex = Int.random(in: 0..<data.count)
+            self.currentImageIndex = randomIndex
+            let randomImageUrlString = data[randomIndex].images.jpg.largeImageURL
+            if let randomImageUrl = URL(string: randomImageUrlString) {
+                UIView.transition(with: self.headerImageView, duration: 0.7, options: .transitionCrossDissolve, animations: {
+                    self.headerImageView.kf.setImage(with: randomImageUrl)
+                }, completion: nil)
+            }
+        }
+    }
+    
+    @objc func headerImageTapped() {
+        guard let currentIndex = currentImageIndex else { return }
+        
+        let selectedAnime = upcomingAnimeList[currentIndex]
+        
+        let detailPage = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "detailsPage") as! AnimeDetailsViewController
+        
+        detailPage.anime = selectedAnime
+        detailPage.navigationItem.largeTitleDisplayMode = .never
+        
+        // Navigate to DetailViewController
+        navigationController?.pushViewController(detailPage, animated: true)
+    }
+
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Invalidate the timer when the view is about to disappear
+        timer?.invalidate()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -144,7 +194,7 @@ class ExplorePageViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
@@ -170,7 +220,7 @@ class ExplorePageViewController: UIViewController {
         }
         return UICollectionReusableView()
     }
-
+    
     
     private func showAlert(message: String) {
         let alert = UIAlertController(title: "View All", message: message, preferredStyle: .alert)
