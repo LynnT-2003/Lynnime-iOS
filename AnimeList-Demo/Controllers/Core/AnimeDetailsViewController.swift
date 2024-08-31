@@ -9,7 +9,7 @@ import UIKit
 import WebKit
 
 class AnimeDetailsViewController: UIViewController {
-
+    
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var animeDescription: UILabel!
@@ -25,7 +25,7 @@ class AnimeDetailsViewController: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationItem.title = "Details"
-
+        
         guard let anime = anime else { return }
         let imageUrlString = anime.images.jpg.largeImageURL
         let imageUrl = URL(string: imageUrlString)
@@ -47,6 +47,31 @@ class AnimeDetailsViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func showMoreButtonOnTapped(_ sender: Any) {
+        //       performSegue(withIdentifier: "detailToDetailedDetailsPage", sender: self)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let detailedDetailsVC = storyboard.instantiateViewController(withIdentifier: "detailedDetailsPage") as? LNAnimeDetailedDetailsViewController {
+            detailedDetailsVC.desc = anime?.synopsis ?? ""
+            detailedDetailsVC.modalPresentationStyle = .pageSheet
+            if let sheet = detailedDetailsVC.sheetPresentationController {
+                let screenHeight = UIScreen.main.bounds.height
+                let customHeight = screenHeight * 0.75  // 75% of the screen height
+                
+                sheet.detents = [
+                    .custom { _ in customHeight }  // Custom detent to cover 75% of the screen
+                ]
+            }
+            present(detailedDetailsVC, animated: true, completion: nil)
+        }
+    }
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //            let destinationVC = segue.destination as! LNAnimeDetailedDetailsViewController
+    //            destinationVC.desc = anime?.synopsis ?? ""
+    //
+    //    }
     
     func modifyAutoplayParameter(for url: String, autoplay: Int) -> String {
         // Check if the URL contains an autoplay parameter

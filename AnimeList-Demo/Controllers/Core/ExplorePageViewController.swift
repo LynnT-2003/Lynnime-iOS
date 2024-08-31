@@ -72,7 +72,7 @@ class ExplorePageViewController: UIViewController {
         "Ecchi": "9",
         "Hentai": "12",
     ]
-
+    
     var timer: Timer?
     var currentImageIndex: Int?
     
@@ -99,49 +99,50 @@ class ExplorePageViewController: UIViewController {
     
     var menuChildren: [UIMenuElement] = []
     var tableViewResult: [Anime] = []
-
+    
     
     /// Called after the controller's view is loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureNavigationBar()
+        setupButtonMenu()
+        setupTapGesture()
+        setupDelegates()
+        registerFooterView()
+        fetchAnimeData()
+    }
+    
+    private func configureNavigationBar() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.title = "Explore Page"
+    }
+    
+    private func setupButtonMenu() {
         let sortedGenreOptions = options.sorted { $0.key < $1.key }
-        
-        let actionClosure = { [weak self] (action: UIAction) in
-            guard let self = self else { return }
-            if let query = options[action.title] {  // Lookup the query using the title
-                print("Selected genre: \(action.title) with query: \(query)")
-                self.searchGenreAnime(query: query)  // Pass the query value to the search function
-            } else {
-                print("Query not found for selected genre: \(action.title)")
+        let menuChildren = sortedGenreOptions.map { title, _ in
+            UIAction(title: title) { [weak self] action in
+                guard let self = self, let query = self.options[action.title] else { return }
+                self.searchGenreAnime(query: query)
             }
         }
         
-        var menuChildren: [UIAction] = []
-        for (title, _) in sortedGenreOptions {
-            menuChildren.append(UIAction(title: title, handler: actionClosure))
-        }
-
         genreAnimeButton.menu = UIMenu(options: .displayInline, children: menuChildren)
         genreAnimeButton.showsMenuAsPrimaryAction = true
         genreAnimeButton.changesSelectionAsPrimaryAction = true
         
         if let actionQuery = options["Action"] {
             searchGenreAnime(query: actionQuery)
-            print("Default genre fetched: Action")
         }
-        
-        // Set up the tap gesture recognizer
+    }
+    
+    private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerImageTapped))
         headerImageView.isUserInteractionEnabled = true
         headerImageView.addGestureRecognizer(tapGesture)
-        
-        // NavigationItem Title
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-        self.navigationItem.title = "Explore Page"
-        
-        // Set up delegates and data sources for collection views.
+    }
+    
+    private func setupDelegates() {
         animeCollectionView.delegate = self
         animeCollectionView.dataSource = self
         
@@ -150,41 +151,46 @@ class ExplorePageViewController: UIViewController {
         
         genreAnimeTableView.delegate = self
         genreAnimeTableView.dataSource = self
-        
+    }
+    
+    private func registerFooterView() {
         animeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
         upcomingAnimeCollectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "footerView")
-        
-        
-        // Fetch and display the latest anime list.
-        LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
+    }
+    
+    private func fetchAnimeData() {
+        fetchLatestAnime()
+        fetchUpcomingAnime()
+    }
+    
+    private func fetchLatestAnime() {
+        LNService.shared.execute(.listLatestAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { [weak self] result in
             switch result {
             case .success(let model):
-                // Trim the list to only include the first 5 items
-                self.allLatestAnimeList = Array(model.data)
-                self.latestAnimeList = Array(model.data.prefix(10))
+                self?.allLatestAnimeList = model.data
+                self?.latestAnimeList = Array(model.data.prefix(10))
                 DispatchQueue.main.async {
-                    self.animeCollectionView.reloadData()
+                    self?.animeCollectionView.reloadData()
                 }
-                
             case .failure(let error):
-                print(String(describing: error))
+                print(error)
             }
         }
-        
-        // Fetch and display the upcoming anime list.
-        LNService.shared.execute(.listUpcomingAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { result in
+    }
+    
+    private func fetchUpcomingAnime() {
+        LNService.shared.execute(.listUpcomingAnimesRequests, expecting: LNGetAllUpcomingAnimeResponse.self) { [weak self] result in
             switch result {
             case .success(let model):
-                self.allUpcomingAnimeList = Array(model.data)
-                self.upcomingAnimeList = Array(model.data.prefix(10))
+                self?.allUpcomingAnimeList = model.data
+                self?.upcomingAnimeList = Array(model.data.prefix(10))
                 DispatchQueue.main.async {
-                    self.startImageRotation(with: model.data)
-                    self.genreAnimeTableView.reloadData()  // here
-                    self.upcomingAnimeCollectionView.reloadData()
+                    self?.startImageRotation(with: model.data)
+                    self?.genreAnimeTableView.reloadData()
+                    self?.upcomingAnimeCollectionView.reloadData()
                 }
-                
             case .failure(let error):
-                print(String(describing: error))
+                print(error)
             }
         }
     }
@@ -410,11 +416,11 @@ extension ExplorePageViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         
         let index = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "genreAnimeCell") as! LNLatestAnimeTableViewCell
-        cell.animeName.text = tableViewResult[index].titleEnglish ?? allUpcomingAnimeList[index].titleJapanese
+        cell.animeName.text = tableViewResult[index].titleEnglish ?? tableViewResult[index].titleJapanese
         cell.animeScore.text = "Score: " + String(describing: tableViewResult[index].score ?? 0)
         cell.animeRank.text =  "Rank: #" + String(describing: tableViewResult[index].rank ?? 0)
         cell.animeSypnosis.text = tableViewResult[index].synopsis

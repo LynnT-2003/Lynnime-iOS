@@ -15,8 +15,29 @@ class SearchPageViewController: UIViewController {
     
     var searchResult: [Anime] = []
     
+    var searchTimer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Set the placeholder text
+        if let magnifyingGlassImage = UIImage(systemName: "magnifyingglass") {
+            // Create the attachment for the image
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = magnifyingGlassImage
+            imageAttachment.bounds = CGRect(x: 0, y: -2, width: 20, height: 16) // Adjust the bounds as needed
+            
+            // Create an attributed string with the image and text
+            let attributedString = NSMutableAttributedString(attachment: imageAttachment)
+            let text = NSAttributedString(string: "  Search for anime..", attributes: [
+                .font: UIFont.systemFont(ofSize: 16)
+            ])
+            attributedString.append(text)
+            
+            // Set the attributed placeholder
+            searchBarTextField.attributedPlaceholder = attributedString
+        }
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "Search"
@@ -52,18 +73,45 @@ class SearchPageViewController: UIViewController {
              }
         }
     }
+    
+    private func scheduleSearch(query: String) {
+        // Invalidate the previous timer
+        searchTimer?.invalidate()
+        
+        // Schedule a new timer
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.75, repeats: false, block: { [weak self] _ in
+            self?.searchAnime(query: query)
+        })
+    }
 }
 
 extension SearchPageViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let query = textField.text, !query.isEmpty else {
-            return false
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let updatedText = (text as NSString).replacingCharacters(in: range, with: string)
+        
+        // Cancel previous search and clear results if query is empty
+        if updatedText.isEmpty {
+            searchTimer?.invalidate()
+            searchResult = [] // Clear search results
+            DispatchQueue.main.async {
+                self.searchResultTableView.reloadData()
+            }
+            return true
         }
-        searchAnime(query: query)
+        
+        // Schedule the search when the text changes
+        scheduleSearch(query: updatedText)
+        
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // Hide the keyboard
         return true
     }
 }
+
 
 extension SearchPageViewController: UITableViewDataSource, UITableViewDelegate {
     
