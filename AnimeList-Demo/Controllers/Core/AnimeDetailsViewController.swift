@@ -69,9 +69,8 @@ class AnimeDetailsViewController: UIViewController {
     
     //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     //            let destinationVC = segue.destination as! LNAnimeDetailedDetailsViewController
-    //            destinationVC.desc = anime?.synopsis ?? ""
-    //
-    //    }
+    //            destinationVC.desc = anime?.)
+
     
     func modifyAutoplayParameter(for url: String, autoplay: Int) -> String {
         // Check if the URL contains an autoplay parameter

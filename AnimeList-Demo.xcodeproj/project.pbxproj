@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BA43BEA32C811A890036175F /* SearchPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43BEA22C811A890036175F /* SearchPageViewController.swift */; };
 		BA43BEAA2C83CAE60036175F /* LNAnimeDetailedDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43BEA92C83CAE60036175F /* LNAnimeDetailedDetailsViewController.swift */; };
+		BA43BEAC2C83D49D0036175F /* LNAnimeDetailedDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43BEAB2C83D49D0036175F /* LNAnimeDetailedDetailsCollectionViewCell.swift */; };
 		BA44C1E82C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */; };
 		BA44C1EB2C7BC3E0003BE98F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA44C1EA2C7BC3E0003BE98F /* Kingfisher */; };
 		BA44C1F12C7C13A9003BE98F /* AnimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		BA43BEA22C811A890036175F /* SearchPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageViewController.swift; sourceTree = "<group>"; };
 		BA43BEA92C83CAE60036175F /* LNAnimeDetailedDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNAnimeDetailedDetailsViewController.swift; sourceTree = "<group>"; };
+		BA43BEAB2C83D49D0036175F /* LNAnimeDetailedDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNAnimeDetailedDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNLatestAnimeTableViewCell.swift; sourceTree = "<group>"; };
 		BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				BA44C1E72C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift */,
 				BA44C1F02C7C13A9003BE98F /* AnimeCollectionViewCell.swift */,
 				BA44C1F42C7C1F55003BE98F /* DemoCollectionViewCell.swift */,
+				BA43BEAB2C83D49D0036175F /* LNAnimeDetailedDetailsCollectionViewCell.swift */,
 			);
 			path = "AnimeList-Demo";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				BA9D78822C7A8E6C00D76956 /* AnimeCollectionViewController.swift in Sources */,
 				BA43BEAA2C83CAE60036175F /* LNAnimeDetailedDetailsViewController.swift in Sources */,
 				BA9D789E2C7A9E3500D76956 /* LNService.swift in Sources */,
+				BA43BEAC2C83D49D0036175F /* LNAnimeDetailedDetailsCollectionViewCell.swift in Sources */,
 				BA44C1E82C7BC205003BE98F /* LNLatestAnimeTableViewCell.swift in Sources */,
 				BA9D787E2C7A8E6C00D76956 /* AppDelegate.swift in Sources */,
 				BA9D78802C7A8E6C00D76956 /* SceneDelegate.swift in Sources */,

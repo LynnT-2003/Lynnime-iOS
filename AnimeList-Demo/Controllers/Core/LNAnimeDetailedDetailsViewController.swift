@@ -11,13 +11,16 @@ class LNAnimeDetailedDetailsViewController: UIViewController {
     
     var desc = "Hi"
 
-    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var allDetailsCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        descriptionLabel.text = desc
+        
+        print("Desc: \(desc)")
+        
+        allDetailsCollection.delegate = self
+        allDetailsCollection.dataSource = self
         
     }
     
@@ -32,4 +35,18 @@ class LNAnimeDetailedDetailsViewController: UIViewController {
     }
     */
 
+}
+
+extension LNAnimeDetailedDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailedDetailsCell", for: indexPath) as! LNAnimeDetailedDetailsCollectionViewCell
+        cell.desc.text = desc
+        
+        return cell
+    }
 }
