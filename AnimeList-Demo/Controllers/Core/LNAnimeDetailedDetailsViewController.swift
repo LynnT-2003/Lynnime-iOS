@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class LNAnimeDetailedDetailsViewController: UIViewController {
     
     var desc = "Hi"
+    var imageString = ""
 
     
     @IBOutlet weak var allDetailsCollection: UICollectionView!
@@ -46,6 +48,11 @@ extension LNAnimeDetailedDetailsViewController: UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailedDetailsCell", for: indexPath) as! LNAnimeDetailedDetailsCollectionViewCell
         cell.desc.text = desc
+        
+        // Fetch and set the image from URL using Kingfisher
+        if let url = URL(string: imageString) {
+            cell.image.kf.setImage(with: url, placeholder: UIImage(named: "placeholder_image"))
+        }
         
         return cell
     }

@@ -54,6 +54,7 @@ class AnimeDetailsViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let detailedDetailsVC = storyboard.instantiateViewController(withIdentifier: "detailedDetailsPage") as? LNAnimeDetailedDetailsViewController {
             detailedDetailsVC.desc = anime?.synopsis ?? ""
+            detailedDetailsVC.imageString = anime?.images.jpg.smallImageURL ?? ""
             detailedDetailsVC.modalPresentationStyle = .pageSheet
             if let sheet = detailedDetailsVC.sheetPresentationController {
                 let screenHeight = UIScreen.main.bounds.height

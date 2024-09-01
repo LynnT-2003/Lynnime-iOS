@@ -9,5 +9,6 @@ import UIKit
 
 class LNAnimeDetailedDetailsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var desc: UILabel!
+    @IBOutlet weak var image: UIImageView!
     
 }
