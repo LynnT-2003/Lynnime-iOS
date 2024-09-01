@@ -319,16 +319,26 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BLz-Tm-OdJ" userLabel="Search">
-                                            <rect key="frame" x="6" y="18" width="349" height="44"/>
+                                            <rect key="frame" x="6" y="18" width="182" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QEM-S2-dL1">
+                                            <rect key="frame" x="212" y="25" width="149" height="31"/>
+                                            <segments>
+                                                <segment title="Christian"/>
+                                                <segment title="Nah"/>
+                                            </segments>
+                                        </segmentedControl>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="BLz-Tm-OdJ" firstAttribute="top" secondItem="LBd-en-AbA" secondAttribute="top" constant="18" id="BT5-cq-0k9"/>
-                                        <constraint firstAttribute="trailing" secondItem="BLz-Tm-OdJ" secondAttribute="trailing" constant="6" id="VvG-eH-86i"/>
+                                        <constraint firstItem="QEM-S2-dL1" firstAttribute="leading" secondItem="BLz-Tm-OdJ" secondAttribute="trailing" constant="24" id="GfS-aR-Zae"/>
+                                        <constraint firstItem="QEM-S2-dL1" firstAttribute="top" secondItem="LBd-en-AbA" secondAttribute="top" constant="25" id="NHJ-z7-h2n"/>
                                         <constraint firstItem="BLz-Tm-OdJ" firstAttribute="leading" secondItem="LBd-en-AbA" secondAttribute="leading" constant="6" id="dVV-HJ-V3Z"/>
+                                        <constraint firstAttribute="bottom" secondItem="QEM-S2-dL1" secondAttribute="bottom" constant="25" id="iZ1-cy-o0a"/>
+                                        <constraint firstAttribute="trailing" secondItem="QEM-S2-dL1" secondAttribute="trailing" id="o0W-N0-qeM"/>
                                         <constraint firstAttribute="bottom" secondItem="BLz-Tm-OdJ" secondAttribute="bottom" constant="18" id="zHk-lF-WbT"/>
                                     </constraints>
                                 </view>
@@ -436,6 +446,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="u7K-X7-pH1"/>
                     <connections>
+                        <outlet property="filterControl" destination="QEM-S2-dL1" id="e2i-KL-dHq"/>
                         <outlet property="searchBarTextField" destination="BLz-Tm-OdJ" id="V3v-TS-Wfl"/>
                         <outlet property="searchResultTableView" destination="s7g-N9-hKz" id="GS8-WN-2EV"/>
                     </connections>

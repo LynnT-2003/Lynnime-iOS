@@ -12,13 +12,17 @@ class SearchPageViewController: UIViewController {
     
     @IBOutlet weak var searchResultTableView: UITableView!
     @IBOutlet weak var searchBarTextField: UITextField!
+    @IBOutlet weak var filterControl: UISegmentedControl!
     
     var searchResult: [Anime] = []
+    var filteredResult: [Anime] = []
     
     var searchTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        filterControl.addTarget(self, action: #selector(filterChanged(_:)), for: .valueChanged)
+
 
         // Set the placeholder text
         if let magnifyingGlassImage = UIImage(systemName: "magnifyingglass") {
@@ -55,24 +59,68 @@ class SearchPageViewController: UIViewController {
     private func searchAnime(query: String) {
         let request = LNRequest.searchAnimeRequest(query: query)
         LNService.shared.execute(request, expecting: LNAnimeGetSearchResponse.self) { result in
-            switch result {
-            case .success(let searchResults):
-                print("Found anime: ")
-                for anime in searchResults.data {
-                    print(anime.titleEnglish ?? anime.titleJapanese)
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success(let searchResults):
+                    print("Found anime: ")
+                    for anime in searchResults.data {
+                        print(anime.titleEnglish ?? anime.titleJapanese)
+                    }
+                    self?.searchResult = searchResults.data
+                    // Handle the search results (e.g., update UI)
+                    self?.filterResults()
+                    
+                    // Reload the table view with the new search results
+                    self?.searchResultTableView.reloadData()
+                case .failure(let error):
+                    print("Failed to search anime: \(error)")
                 }
-                self.searchResult = searchResults.data
-                // Handle the search results (e.g., update UI)
-                
-                // Reload the table view with the new search results
-                DispatchQueue.main.async {
-                    self.searchResultTableView.reloadData()
-                }
-            case .failure(let error):
-                print("Failed to search anime: \(error)")
-             }
+            }
         }
     }
+
+    
+    @objc private func filterChanged(_ sender: UISegmentedControl) {
+        filterResults()
+    }
+    
+    private func filterResults() {
+        DispatchQueue.main.async { [weak self] in
+            // Check if searchResult is not empty
+            guard let self = self, !self.searchResult.isEmpty else {
+                self?.filteredResult = []
+                self?.searchResultTableView.reloadData()
+                return
+            }
+
+            // Apply filter based on the selected segment
+            switch self.filterControl.selectedSegmentIndex {
+            case 0:
+                // Filter out results that contain "ecchi" or "hentai" in genres
+                self.filteredResult = self.searchResult.filter { anime in
+                    // Check if the genres array is nil
+                    guard let genres = anime.genres else {
+                        return true // Include anime with nil genres
+                    }
+
+                    // Get the names of all genres
+                    let genreNames = genres.map { $0.name.lowercased() }
+                    // Check if the genres include "ecchi" or "hentai"
+                    return !genreNames.contains("ecchi") && !genreNames.contains("hentai")
+                }
+            case 1:
+                // No filter applied, show all results
+                self.filteredResult = self.searchResult
+            default:
+                // Default case, show all results
+                self.filteredResult = self.searchResult
+            }
+            
+            // Reload the table view with the filtered results
+            self.searchResultTableView.reloadData()
+        }
+    }
+
     
     private func scheduleSearch(query: String) {
         // Invalidate the previous timer
@@ -94,8 +142,8 @@ extension SearchPageViewController: UITextFieldDelegate {
         if updatedText.isEmpty {
             searchTimer?.invalidate()
             searchResult = [] // Clear search results
-            DispatchQueue.main.async {
-                self.searchResultTableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.searchResultTableView.reloadData()
             }
             return true
         }
@@ -113,22 +161,23 @@ extension SearchPageViewController: UITextFieldDelegate {
 }
 
 
+
 extension SearchPageViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResult.count
+        return filteredResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! LNLatestAnimeTableViewCell
-        cell.animeName.text = searchResult[index].titleEnglish ?? searchResult[index].titleJapanese
-        cell.animeScore.text = "Score: " + String(describing: searchResult[index].score ?? 0)
-        cell.animeRank.text =  "Rank: #" + String(describing: searchResult[index].rank ?? 0)
-        cell.animeSypnosis.text = searchResult[index].synopsis
+        cell.animeName.text = filteredResult[index].titleEnglish ?? filteredResult[index].titleJapanese
+        cell.animeScore.text = "Score: " + String(describing: filteredResult[index].score ?? 0)
+        cell.animeRank.text =  "Rank: #" + String(describing: filteredResult[index].rank ?? 0)
+        cell.animeSypnosis.text = filteredResult[index].synopsis
         
         // Extract the image URL string safely
-        let imageUrlString = searchResult[index].images.jpg.largeImageURL
+        let imageUrlString = filteredResult[index].images.jpg.largeImageURL
         
         // Create a URL from the string
         if let imageUrl = URL(string: imageUrlString) {
